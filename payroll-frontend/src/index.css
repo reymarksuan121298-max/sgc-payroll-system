@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+:root, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Background Blinking Effect */
+@keyframes blink-bg {
+  0%, 100% { background-color: #f4f6f9; }
+  50% { background-color: #e2e8f0; }
+}
+.animate-blink {
+  animation: blink-bg 4s infinite ease-in-out;
+}
+
+/* Rotating Border Logic */
+@keyframes rotate-gradient {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-rotate-border::before {
+  content: "";
+  position: absolute;
+  left: -50%;
+  top: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    transparent, 
+    #2563eb, /* Blue 600 */
+    #a855f7, /* Purple 500 */
+    #2563eb, 
+    transparent 35%
+  );
+  animation: rotate-gradient 3s linear infinite;
+}
