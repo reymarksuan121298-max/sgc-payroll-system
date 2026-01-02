@@ -34,7 +34,8 @@ export default function Employees() {
 
   const EmptyPlaceholder = () => (
     <div className="flex items-center justify-center w-6 h-6 rounded-full bg-slate-800/40">
-      <div className="w-2 h-[2px] bg-blue-500 rounded-full shadow-[0_0_8px_rgba(59,130,246,0.8)]"></div>
+      {/* v4 update: h-0.5 instead of h-[2px] */}
+      <div className="w-2 h-0.5 bg-blue-500 rounded-full shadow-[0_0_8px_rgba(59,130,246,0.8)]"></div>
     </div>
   );
 
@@ -170,7 +171,8 @@ export default function Employees() {
   useEffect(() => { setCurrentPage(1); }, [searchTerm]);
 
   return (
-    <div className="p-2 md:p-6 max-w-[1400px] mx-auto font-sans dark:bg-slate-950 min-h-screen">
+    /* v4 update: max-w-350 instead of max-w-[1400px] */
+    <div className="p-2 md:p-6 max-w-350 mx-auto font-sans dark:bg-slate-950 min-h-screen">
       
       {/* HEADER */}
       <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-6 px-2">
@@ -192,7 +194,8 @@ export default function Employees() {
       {/* TABLE */}
       <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl shadow-sm overflow-hidden relative">
         <div className="overflow-x-auto">
-          <table className="w-full text-left min-w-[950px]">
+          {/* v4 update: min-w-237.5 instead of min-w-[950px] */}
+          <table className="w-full text-left min-w-237.5">
             <thead>
               <tr className="border-b border-slate-50 dark:border-slate-800 text-[10px] text-slate-400 font-black uppercase tracking-[0.2em] bg-slate-50/50 dark:bg-slate-800/20">
                 <th className="px-6 py-5">Employee Details</th>
@@ -277,8 +280,10 @@ export default function Employees() {
 
       {/* DELETE MODAL */}
       {deleteConfirm.isOpen && (
-        <div className="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-md">
-           <div className="bg-white dark:bg-slate-900 w-full max-w-[340px] rounded-[2.5rem] p-8 shadow-2xl border border-slate-100 dark:border-slate-800 text-center animate-in zoom-in duration-200">
+        /* v4 update: z-120 instead of z-[120] */
+        <div className="fixed inset-0 z-120 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-md">
+           {/* v4 update: max-w-85 instead of max-w-[340px] */}
+           <div className="bg-white dark:bg-slate-900 w-full max-w-85 rounded-[2.5rem] p-8 shadow-2xl border border-slate-100 dark:border-slate-800 text-center animate-in zoom-in duration-200">
             <div className="w-20 h-20 bg-red-50 dark:bg-red-950/30 rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_rgba(239,68,68,0.2)]">
               <ExclamationTriangleIcon className="w-10 h-10 text-red-500 drop-shadow-[0_0_8px_rgba(239,68,68,0.4)]" />
             </div>
@@ -294,8 +299,10 @@ export default function Employees() {
 
       {/* SAVE/UPDATE MODAL */}
       {saveConfirm.isOpen && (
-        <div className="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-md">
-           <div className="bg-white dark:bg-slate-900 w-full max-w-[340px] rounded-[2.5rem] p-8 shadow-2xl border border-slate-100 dark:border-slate-800 text-center animate-in zoom-in duration-200">
+        /* v4 update: z-120 instead of z-[120] */
+        <div className="fixed inset-0 z-120 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-md">
+           {/* v4 update: max-w-85 instead of max-w-[340px] */}
+           <div className="bg-white dark:bg-slate-900 w-full max-w-85 rounded-[2.5rem] p-8 shadow-2xl border border-slate-100 dark:border-slate-800 text-center animate-in zoom-in duration-200">
             <div className="w-20 h-20 bg-blue-50 dark:bg-blue-950/30 rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_rgba(37,99,235,0.2)]">
               <QuestionMarkCircleIcon className="w-10 h-10 text-blue-500 drop-shadow-[0_0_8px_rgba(37,99,235,0.4)]" />
             </div>
@@ -311,8 +318,10 @@ export default function Employees() {
 
       {/* REGISTRATION MODAL */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm">
-          <div className="bg-white dark:bg-slate-900 w-full max-w-[380px] rounded-3xl p-6 shadow-2xl relative border border-slate-100 dark:border-slate-800 animate-in slide-in-from-bottom-4 duration-300">
+        /* v4 update: z-100 instead of z-[100] */
+        <div className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm">
+          {/* v4 update: max-w-95 instead of max-w-[380px] */}
+          <div className="bg-white dark:bg-slate-900 w-full max-w-95 rounded-3xl p-6 shadow-2xl relative border border-slate-100 dark:border-slate-800 animate-in slide-in-from-bottom-4 duration-300">
             <button onClick={handleCloseModal} className="absolute right-5 top-5 text-red-500 hover:rotate-90 transition-transform"><XMarkIcon className="w-6 h-6" /></button>
             <h3 className="text-center font-black text-slate-800 dark:text-white mb-6 uppercase text-xs tracking-[0.4em]">{editingId ? 'Member Profile' : 'New Member'}</h3>
             

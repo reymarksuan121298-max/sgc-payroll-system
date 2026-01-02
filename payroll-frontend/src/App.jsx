@@ -21,6 +21,9 @@ import PayrollReport from './components/PayrollReport';
 import TimeInTimeOutReport from './components/TimeInTimeOutReport';
 import PayrollSettingsModal from './components/PayrollSettingsModal'; 
 
+// --- BAGONG IMPORT PARA SA AGENT ATTENDANCE MAP ---
+import AgentMap from './components/AgentGlobe'; 
+
 // Employee Portal Page (Para sa Filing, Payslip, etc.)
 import EmployeePortal from './pages/EmployeePortal'; 
 
@@ -35,9 +38,8 @@ function MainLayout() {
 
   const handleLogout = () => {
     sessionStorage.clear();
-    // Inalis ang localStorage.clear() para hindi ma-logout ang terminal/employee sessions nang sabay
     sessionStorage.removeItem("loggedIn"); 
-    window.location.replace('/admin'); // Redirect sa admin login page
+    window.location.replace('/admin'); 
   };
 
   return (
@@ -47,7 +49,7 @@ function MainLayout() {
         <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
           <header className="h-16 bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 flex items-center justify-between px-6 z-40 shrink-0">
             <div className="flex items-center gap-4">
-              <button onClick={() => setIsSidebarOpen(true)} className="lg:hidden p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-full">
+              <button onClick={() => setIsSidebarOpen(true)} className="lg:hidden p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-full cursor-pointer">
                 <Bars3Icon className="w-6 h-6 text-gray-600 dark:text-gray-300" />
               </button>
               <h2 className="text-[15px] md:text-[17px] font-bold tracking-tight text-slate-800 dark:text-white ">Admin Panel</h2>
@@ -62,7 +64,7 @@ function MainLayout() {
               <div className="relative">
                 <button 
                   onClick={() => setIsSettingsOpen(!isSettingsOpen)}
-                  className={`p-2 rounded-full transition-all ${isSettingsOpen ? 'bg-blue-50 dark:bg-slate-700 text-blue-600' : 'hover:bg-gray-100 dark:hover:bg-slate-700 text-gray-500'}`}
+                  className={`p-2 rounded-full transition-all cursor-pointer ${isSettingsOpen ? 'bg-blue-50 dark:bg-slate-700 text-blue-600' : 'hover:bg-gray-100 dark:hover:bg-slate-700 text-gray-500'}`}
                 >
                   <Cog8ToothIcon className="w-6 h-6" />
                 </button>
@@ -73,7 +75,7 @@ function MainLayout() {
                     <div className="absolute right-0 mt-3 w-64 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-2xl shadow-2xl z-20 overflow-hidden p-2">
                       <button 
                         onClick={() => setIsDarkMode(!isDarkMode)}
-                        className="w-full flex items-center justify-between p-3 hover:bg-gray-50 dark:hover:bg-slate-700 rounded-xl transition-all"
+                        className="w-full flex items-center justify-between p-3 hover:bg-gray-50 dark:hover:bg-slate-700 rounded-xl transition-all cursor-pointer"
                       >
                         <div className="flex items-center gap-3">
                           {isDarkMode ? <SunIcon className="w-5 h-5 text-yellow-500" /> : <MoonIcon className="w-5 h-5 text-indigo-500" />}
@@ -89,14 +91,14 @@ function MainLayout() {
                           setIsPayrollSettingsOpen(true);
                           setIsSettingsOpen(false);
                         }}
-                        className="w-full flex items-center gap-3 p-3 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700 rounded-xl font-bold text-sm"
+                        className="w-full flex items-center gap-3 p-3 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700 rounded-xl font-bold text-sm cursor-pointer"
                       >
                         <WrenchScrewdriverIcon className="w-5 h-5" /> Payroll Settings
                       </button>
 
                       <div className="border-t border-gray-100 dark:border-slate-700 my-1"></div>
                       
-                      <button onClick={handleLogout} className="w-full flex items-center gap-3 p-3 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl font-bold text-sm">
+                      <button onClick={handleLogout} className="w-full flex items-center gap-3 p-3 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl font-bold text-sm cursor-pointer">
                         <ArrowRightOnRectangleIcon className="w-5 h-5" /> Logout Admin
                       </button>
                     </div>
@@ -121,10 +123,7 @@ function MainLayout() {
 }
 
 function App() {
-  // Session para sa Admin
   const [adminSession, setAdminSession] = useState(() => sessionStorage.getItem("loggedIn") === "true");
-  
-  // Session para sa Employee
   const [employeeSession, setEmployeeSession] = useState(() => localStorage.getItem("current_employee") !== null);
 
   useEffect(() => {
@@ -139,26 +138,23 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* --- ATTENDANCE TERMINAL (ID SCANNER) --- */}
-        {/* Public route ito para laging naka-display sa entrance */}
+        {/* --- ATTENDANCE TERMINAL --- */}
         <Route path="/attendance" element={<AttendanceTerminal />} />
 
-        {/* --- EMPLOYEE ROUTES (PORTAL) --- */}
-        {/* Landing page: Login ng Employee para sa Filing/Payslip */}
+        {/* --- EMPLOYEE ROUTES --- */}
         <Route path="/" element={!employeeSession ? <Login userType="employee" setSession={setEmployeeSession} /> : <Navigate to="/portal" replace />} />
-        
-        {/* Employee Dashboard/Portal (Filing area) */}
         <Route path="/portal" element={employeeSession ? <EmployeePortal /> : <Navigate to="/" replace />} />
 
-
         {/* --- ADMIN ROUTES --- */}
-        {/* Tago ang admin login sa /admin */}
         <Route path="/admin" element={!adminSession ? <Login userType="admin" setSession={setAdminSession} /> : <Navigate to="/app/dashboard" replace />} />
 
-        {/* Main Admin Layout */}
         <Route path="/app" element={adminSession ? <MainLayout /> : <Navigate to="/admin" replace />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="employees" element={<Employees />} />
+          
+          {/* --- BAGONG ROUTE PARA SA AGENT MAP --- */}
+          <Route path="agent-map" element={<AgentMap />} />
+
           <Route path="addition-deduction" element={<AdditionDeduction />} />
           <Route path="calendar-dayoff" element={<CalendarDayOff />} />
           <Route path="payroll-report" element={<PayrollReport />} />

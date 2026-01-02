@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
-import {
-  ArrowPathIcon,
+import { 
+  ArrowPathIcon, 
   MagnifyingGlassIcon,
   ExclamationCircleIcon,
   GlobeAsiaAustraliaIcon,
@@ -18,7 +18,7 @@ export default function CalendarDayOff() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("ALL");
-
+  
   // PAGINATION STATE
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
@@ -128,7 +128,7 @@ export default function CalendarDayOff() {
         .hide-scrollbar::-webkit-scrollbar { display: none !important; }
         .hide-scrollbar { -ms-overflow-style: none !important; scrollbar-width: none !important; }
       `}</style>
-
+      
       {/* 1. TOP HEADER */}
       <div className="flex items-center justify-between px-2">
         <div>
@@ -136,19 +136,19 @@ export default function CalendarDayOff() {
             DUTY ROSTER
             <GlobeAsiaAustraliaIcon className="w-5 h-5 text-green-500" />
           </h1>
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic tracking-tighter">Verified Server Time (PHT)</p>
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">Verified Server Time (PHT)</p>
         </div>
         <div className="text-right">
-          <p className="text-xs font-black text-blue-600 uppercase italic">
-            {start.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - {end.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-          </p>
-          <p className="text-[9px] font-bold text-slate-400 uppercase tracking-tighter">Current Cutoff Period</p>
+            <p className="text-xs font-black text-blue-600 uppercase italic">
+              {start.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - {end.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+            </p>
+            <p className="text-[9px] font-bold text-slate-400 uppercase tracking-tighter">Current Cutoff Period</p>
         </div>
       </div>
 
       {/* 2. FILTER CARDS */}
       <div className="grid grid-cols-2 gap-4">
-        <button
+        <button 
           onClick={() => setFilterStatus(filterStatus === "OFF" ? "ALL" : "OFF")}
           className={`p-5 rounded-[2.5rem] border transition-all text-left ${filterStatus === "OFF" ? 'bg-blue-600 border-blue-600 shadow-xl' : 'bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 shadow-sm'}`}
         >
@@ -159,7 +159,7 @@ export default function CalendarDayOff() {
           <p className={`text-[10px] font-black uppercase tracking-widest ${filterStatus === "OFF" ? 'text-blue-100' : 'text-slate-400'}`}>Day Off Today</p>
         </button>
 
-        <button
+        <button 
           onClick={() => setFilterStatus(filterStatus === "DUTY" ? "ALL" : "DUTY")}
           className={`p-5 rounded-[2.5rem] border transition-all text-left ${filterStatus === "DUTY" ? 'bg-slate-800 border-slate-800 shadow-xl' : 'bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 shadow-sm'}`}
         >
@@ -181,10 +181,11 @@ export default function CalendarDayOff() {
               <button
                 key={i}
                 onClick={() => setSelectedDate(d)}
-                className={`flex-shrink-0 w-12 h-16 rounded-2xl flex flex-col items-center justify-center transition-all ${isSelected
-                  ? 'bg-blue-600 text-white shadow-lg scale-110'
+                className={`shrink-0 w-12 h-16 rounded-2xl flex flex-col items-center justify-center transition-all ${
+                  isSelected 
+                  ? 'bg-blue-600 text-white shadow-lg scale-110' 
                   : 'bg-slate-50 dark:bg-slate-800 text-slate-400 hover:bg-slate-100'
-                  }`}
+                }`}
               >
                 <span className="text-[9px] font-bold uppercase">{d.toLocaleString('en-US', { weekday: 'short' })}</span>
                 <span className="text-base font-black">{d.getDate()}</span>
@@ -196,10 +197,10 @@ export default function CalendarDayOff() {
 
         <div className="relative">
           <MagnifyingGlassIcon className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" />
-          <input
+          <input 
             type="text"
             placeholder="Search employee name or ID..."
-            className="w-full pl-12 pr-4 py-4 bg-slate-50 dark:bg-slate-800 rounded-[1.5rem] text-sm border-none focus:ring-2 focus:ring-blue-500 dark:text-white shadow-inner"
+            className="w-full pl-12 pr-4 py-4 bg-slate-50 dark:bg-slate-800 rounded-3xl text-sm border-none focus:ring-2 focus:ring-blue-500 dark:text-white shadow-inner"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -209,7 +210,8 @@ export default function CalendarDayOff() {
       {/* 4. LIST SECTION */}
       <div className="space-y-3 pb-4">
         <div className="flex justify-between items-center px-4">
-          <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">
+          {/* Line 139 update: Inalis ang tracking-tighter para mawala ang conflict sa tracking-widest */}
+          <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
             Staff List ({allFiltered.length}) • Page {currentPage} of {totalPages || 1}
           </h2>
           {filterStatus !== "ALL" && (
@@ -223,17 +225,19 @@ export default function CalendarDayOff() {
           const isSet = emp.day_off && emp.day_off !== '-' && emp.day_off !== 'EMPTY';
 
           return (
-            <div
-              key={emp.id}
-              className={`flex items-center justify-between p-4 rounded-[2rem] border transition-all ${isOff
-                ? 'bg-blue-50/50 dark:bg-blue-900/10 border-blue-100 dark:border-blue-900/30 shadow-md shadow-blue-500/5'
+            <div 
+              key={emp.id} 
+              className={`flex items-center justify-between p-4 rounded-4xl border transition-all ${
+                isOff 
+                ? 'bg-blue-50/50 dark:bg-blue-900/10 border-blue-100 dark:border-blue-900/30 shadow-md shadow-blue-500/5' 
                 : 'bg-white dark:bg-slate-900 border-white dark:border-slate-800 shadow-sm'
-                }`}
+              }`}
             >
               <div className="flex items-center gap-4">
-                <div className={`w-12 h-12 rounded-2xl flex items-center justify-center font-black text-sm ${isOff ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-400'
-                  }`}>
-                  {emp.name.substring(0, 2).toUpperCase()}
+                <div className={`w-12 h-12 rounded-2xl flex items-center justify-center font-black text-sm ${
+                  isOff ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-400'
+                }`}>
+                  {emp.name.substring(0,2).toUpperCase()}
                 </div>
                 <div>
                   <h3 className="text-sm font-black text-slate-800 dark:text-slate-100 uppercase tracking-tight">{emp.name}</h3>
@@ -256,11 +260,11 @@ export default function CalendarDayOff() {
             </div>
           );
         })}
-
+        
         {currentEmployees.length === 0 && (
           <div className="text-center py-20 bg-white dark:bg-slate-900 rounded-[2.5rem] border-2 border-dashed border-slate-100 dark:border-slate-800">
-            <ExclamationCircleIcon className="w-10 h-10 text-slate-200 mx-auto mb-2" />
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">No Staff Found</p>
+             <ExclamationCircleIcon className="w-10 h-10 text-slate-200 mx-auto mb-2" />
+             <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">No Staff Found</p>
           </div>
         )}
       </div>
@@ -271,23 +275,25 @@ export default function CalendarDayOff() {
           <button
             onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
             disabled={currentPage === 1}
-            className={`p-3 rounded-2xl border transition-all ${currentPage === 1
-              ? 'text-slate-300 border-slate-100 dark:border-slate-800 cursor-not-allowed'
+            className={`p-3 rounded-2xl border transition-all ${
+              currentPage === 1 
+              ? 'text-slate-300 border-slate-100 dark:border-slate-800 cursor-not-allowed' 
               : 'text-blue-600 border-blue-100 bg-white dark:bg-slate-900 shadow-sm hover:bg-blue-50'
-              }`}
+            }`}
           >
             <ChevronLeftIcon className="w-5 h-5" />
           </button>
-
+          
           <div className="flex items-center gap-2">
             {[...Array(totalPages)].map((_, i) => (
               <button
                 key={i}
                 onClick={() => setCurrentPage(i + 1)}
-                className={`w-8 h-8 rounded-xl text-[10px] font-black transition-all ${currentPage === i + 1
+                className={`w-8 h-8 rounded-xl text-[10px] font-black transition-all ${
+                  currentPage === i + 1
                   ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
                   : 'text-slate-400 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 hover:bg-slate-50'
-                  }`}
+                }`}
               >
                 {i + 1}
               </button>
@@ -297,10 +303,11 @@ export default function CalendarDayOff() {
           <button
             onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
             disabled={currentPage === totalPages}
-            className={`p-3 rounded-2xl border transition-all ${currentPage === totalPages
-              ? 'text-slate-300 border-slate-100 dark:border-slate-800 cursor-not-allowed'
+            className={`p-3 rounded-2xl border transition-all ${
+              currentPage === totalPages 
+              ? 'text-slate-300 border-slate-100 dark:border-slate-800 cursor-not-allowed' 
               : 'text-blue-600 border-blue-100 bg-white dark:bg-slate-900 shadow-sm hover:bg-blue-50'
-              }`}
+            }`}
           >
             <ChevronRightIcon className="w-5 h-5" />
           </button>

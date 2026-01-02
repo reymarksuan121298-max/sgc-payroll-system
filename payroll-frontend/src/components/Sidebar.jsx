@@ -5,7 +5,8 @@ import {
   ClipboardDocumentIcon, 
   AdjustmentsHorizontalIcon, 
   ChartBarIcon,
-  ChevronRightIcon
+  ChevronRightIcon,
+  MapIcon // <--- Idinagdag para sa Map Update
 } from '@heroicons/react/24/outline';
 
 export default function Sidebar({ isOpen, toggleSidebar }) {
@@ -13,13 +14,30 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // --- MENU ITEMS WITH THE NEW MAP LINK ---
   const menuItems = [
-    { id: 'dashboard', path: '/app/dashboard', label: 'Attendance Logs', icon: <ClipboardDocumentIcon className="w-5 h-5" /> },
-    { id: 'employees', path: '/app/employees', label: 'Employee Dashboard', icon: <UserGroupIcon className="w-5 h-5" /> },
+    { 
+      id: 'dashboard', 
+      path: '/app/dashboard', 
+      label: 'Attendance Logs', 
+      icon: <ClipboardDocumentIcon className="w-5 h-5" /> 
+    },
+    { 
+      id: 'agent-map', 
+      path: '/app/agent-map', 
+      label: 'Agent Attendance Map', 
+      icon: <MapIcon className="w-5 h-5" /> 
+    },
+    { 
+      id: 'employees', 
+      path: '/app/employees', 
+      label: 'Employee Dashboard', 
+      icon: <UserGroupIcon className="w-5 h-5" /> 
+    },
   ];
 
   const handleNavigation = (path) => {
-    if (!path) return; // Iwas error kung walang path
+    if (!path) return;
     navigate(path);
     if (window.innerWidth < 1024) toggleSidebar();
   };
@@ -86,7 +104,7 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
             <SubItem label="Request Management" />
           </IOSDropdown>
 
-          {/* REPORTS DROPDOWN - UPDATED LINKS */}
+          {/* REPORTS DROPDOWN */}
           <IOSDropdown 
             label="Reports" 
             icon={<ChartBarIcon className="w-5 h-5" />} 
@@ -100,8 +118,8 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
             />
             <SubItem 
               label="Time In/Out Report" 
-              active={location.pathname === '/app/attendance-report'} // Path matching
-              onClick={() => handleNavigation('/app/attendance-report')} // Dynamic navigation
+              active={location.pathname === '/app/attendance-report'}
+              onClick={() => handleNavigation('/app/attendance-report')}
             />
             <SubItem label="Payslip Summary" />
             <SubItem label="13 Month Pay " />
@@ -140,7 +158,7 @@ function IOSDropdown({ label, icon, isOpen, onClick, children }) {
         <ChevronRightIcon className={`w-3.5 h-3.5 transition-transform duration-300 ${isOpen ? 'rotate-90 text-blue-600 dark:text-blue-400' : 'text-gray-400'}`} />
       </button>
       {isOpen && (
-        <div className="ml-4 pl-6 border-l-2 border-gray-200 dark:border-slate-800 mt-1 space-y-1 animate-in slide-in-from-top-1 duration-200">
+        <div className="ml-4 pl-6 border-l-2 border-gray-200 dark:border-slate-800 mt-1 space-y-1">
           {children}
         </div>
       )}
