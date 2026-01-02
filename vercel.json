@@ -1,9 +1,7 @@
 {
     "version": 2,
-    "buildCommand": "npm run build",
-    "outputDirectory": "dist",
-    "installCommand": "npm install",
-    "devCommand": "npm run dev",
+    "buildCommand": "cd payroll-frontend && npm install --legacy-peer-deps && npm run build",
+    "outputDirectory": "payroll-frontend/dist",
     "framework": "vite",
     "rewrites": [
         {
