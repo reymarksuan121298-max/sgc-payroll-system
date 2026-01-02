@@ -1,8 +1,10 @@
 {
-    "buildCommand": "cd payroll-frontend && npm install && npm run build",
-    "outputDirectory": "payroll-frontend/dist",
-    "installCommand": "cd payroll-frontend && npm install",
-    "devCommand": "cd payroll-frontend && npm run dev",
+    "version": 2,
+    "buildCommand": "npm run build",
+    "outputDirectory": "dist",
+    "installCommand": "npm install",
+    "devCommand": "npm run dev",
+    "framework": "vite",
     "rewrites": [
         {
             "source": "/(.*)",
