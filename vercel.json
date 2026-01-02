@@ -1,0 +1,10 @@
+{
+    "buildCommand": "cd payroll-frontend && npm install --legacy-peer-deps && npm run build",
+    "outputDirectory": "payroll-frontend/dist",
+    "rewrites": [
+        {
+            "source": "/(.*)",
+            "destination": "/index.html"
+        }
+    ]
+}
