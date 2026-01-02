@@ -1,0 +1,12 @@
+{
+    "buildCommand": "cd payroll-frontend && npm install && npm run build",
+    "outputDirectory": "payroll-frontend/dist",
+    "installCommand": "cd payroll-frontend && npm install",
+    "devCommand": "cd payroll-frontend && npm run dev",
+    "rewrites": [
+        {
+            "source": "/(.*)",
+            "destination": "/index.html"
+        }
+    ]
+}
