@@ -7,7 +7,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 export default function Login({ setSession, userType }) {
   const [step, setStep] = useState(1);
-  const [identifier, setIdentifier] = useState(''); 
+  const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const [hardcodedPin, setHardcodedPin] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -20,7 +20,7 @@ export default function Login({ setSession, userType }) {
   const pinRef = useRef(null);
 
   const INTERNAL_UI_REV = "fe0c8d422bce2c84cd181ada081682d975ba30e031310ee338abcdf1186f468a";
-  const EMPLOYEE_DEFAULT_PASS = "sgc2025"; 
+  const EMPLOYEE_DEFAULT_PASS = "sgc2025";
 
   const sha256 = async (message) => {
     const msgBuffer = new TextEncoder().encode(message);
@@ -33,7 +33,7 @@ export default function Login({ setSession, userType }) {
     if (e) e.preventDefault();
     setLoading(true);
     setIsError(false);
-    
+
     try {
       if (userType === 'admin') {
         const { data, error } = await supabase
@@ -44,7 +44,7 @@ export default function Login({ setSession, userType }) {
           .single();
 
         if (error || !data) throw new Error("Invalid Admin credentials.");
-        setStep(2); 
+        setStep(2);
 
       } else {
         if (password !== EMPLOYEE_DEFAULT_PASS) {
@@ -118,32 +118,32 @@ export default function Login({ setSession, userType }) {
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-[#f8fafc] relative font-sans overflow-hidden text-slate-900">
       <Toaster position="top-center" />
-      
+
       {/* BACKGROUND ELEMENTS (Malinis na, wala nang aso dito) */}
-      <Motion.div 
+      <Motion.div
         animate={{ x: [0, 80, -80, 0], y: [0, -40, 40, 0] }}
         transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
         className={`absolute top-[-10%] left-[-10%] w-[500px] h-[500px] blur-[100px] rounded-full z-0 ${userType === 'admin' ? 'bg-slate-400/10' : 'bg-blue-400/10'}`}
       />
 
-      <Motion.div 
-        animate={isError ? { x: [-10, 10, -10, 10, 0] } : {}} 
-        transition={{ duration: 0.4 }} 
+      <Motion.div
+        animate={isError ? { x: [-10, 10, -10, 10, 0] } : {}}
+        transition={{ duration: 0.4 }}
         className="relative p-[2px] rounded-[42px] overflow-hidden z-10 shadow-2xl"
       >
-        <Motion.div 
+        <Motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
           className={`absolute inset-[-100%] ${userType === 'admin' ? 'bg-[conic-gradient(from_0deg,#e2e8f0,#0f172a,#e2e8f0,#334155,#e2e8f0)]' : 'bg-[conic-gradient(from_0deg,#e2e8f0,#3b82f6,#e2e8f0,#6366f1,#e2e8f0)]'}`}
         />
 
         <div className="relative bg-white rounded-[40px] overflow-hidden min-h-[630px] w-[400px] md:w-[440px] flex flex-col border border-slate-100">
-          
+
           <AnimatePresence mode="popLayout">
             {!isUnlocked && (
-              <Motion.div 
-                key="lock" exit={{ opacity: 0, scale: 1.1 }} transition={{ duration: 0.6 }} 
-                onClick={() => setIsUnlocked(true)} 
+              <Motion.div
+                key="lock" exit={{ opacity: 0, scale: 1.1 }} transition={{ duration: 0.6 }}
+                onClick={() => setIsUnlocked(true)}
                 className="absolute inset-0 z-50 cursor-pointer bg-white/95 backdrop-blur-md flex flex-col items-center justify-center p-12 text-center"
               >
                 {/* 🐕 ITO YUNG OVERLAY DOG - Mananatili lang kung Admin */}
@@ -154,7 +154,7 @@ export default function Login({ setSession, userType }) {
                     <FiLock className="text-slate-300" size={32} />
                   </div>
                 )}
-                
+
                 <h1 className="text-slate-900 font-black tracking-tighter text-3xl uppercase mb-2">System Paused</h1>
                 <p className="text-slate-400 text-[10px] font-bold tracking-[0.3em] uppercase mb-8">
                   {userType === 'admin' ? 'Secret Admin Access' : 'Personnel Portal'}
@@ -166,7 +166,7 @@ export default function Login({ setSession, userType }) {
             {step === 1 ? (
               <Motion.div key="s1" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="p-12 flex-1 flex flex-col justify-center">
                 <div className="text-center mb-10">
-                  <img src="https://i.imgur.com/lDBbj91.png" className="w-[160px] mx-auto mb-6" alt="Logo" />
+                  <img src="/logo.png" className="h-20 mx-auto mb-6" alt="Logo" />
                   <h2 className="text-slate-900 text-2xl font-black italic tracking-tighter uppercase leading-none">
                     {userType === 'admin' ? 'Admin' : 'Emp'}<span className="text-blue-600">Portal</span>
                   </h2>
@@ -175,19 +175,19 @@ export default function Login({ setSession, userType }) {
                 <form onSubmit={handleLogin} className="space-y-4">
                   <div className="relative">
                     <FiUser className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300" />
-                    <input 
-                      ref={usernameRef} type="text" placeholder={userType === 'admin' ? "USERNAME" : "EMPLOYEE ID"} 
-                      className="w-full pl-14 pr-5 py-5 bg-slate-50 border border-slate-200 rounded-3xl outline-none focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all text-xs font-bold uppercase tracking-widest" 
-                      value={identifier} onChange={(e) => setIdentifier(e.target.value)} required 
+                    <input
+                      ref={usernameRef} type="text" placeholder={userType === 'admin' ? "USERNAME" : "EMPLOYEE ID"}
+                      className="w-full pl-14 pr-5 py-5 bg-slate-50 border border-slate-200 rounded-3xl outline-none focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all text-xs font-bold uppercase tracking-widest"
+                      value={identifier} onChange={(e) => setIdentifier(e.target.value)} required
                     />
                   </div>
-                  
+
                   <div className="relative">
                     <FiLock className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300" />
-                    <input 
-                      type={showPassword ? "text" : "password"} placeholder="PASSWORD" 
-                      className="w-full pl-14 pr-14 py-5 bg-slate-50 border border-slate-200 rounded-3xl outline-none focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all text-xs font-bold uppercase tracking-widest" 
-                      value={password} onChange={(e) => setPassword(e.target.value)} required 
+                    <input
+                      type={showPassword ? "text" : "password"} placeholder="PASSWORD"
+                      className="w-full pl-14 pr-14 py-5 bg-slate-50 border border-slate-200 rounded-3xl outline-none focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all text-xs font-bold uppercase tracking-widest"
+                      value={password} onChange={(e) => setPassword(e.target.value)} required
                     />
                     <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400">
                       {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
@@ -224,11 +224,11 @@ export default function Login({ setSession, userType }) {
               <FiActivity className="text-blue-500 animate-pulse" size={12} />
             </div>
             <div className="h-1 bg-slate-200 rounded-full overflow-hidden">
-                <Motion.div 
-                  animate={{ x: ["-100%", "100%"] }} 
-                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }} 
-                  className="w-1/3 h-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)]" 
-                />
+              <Motion.div
+                animate={{ x: ["-100%", "100%"] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                className="w-1/3 h-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)]"
+              />
             </div>
           </div>
         </div>
