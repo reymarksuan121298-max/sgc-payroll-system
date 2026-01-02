@@ -16,7 +16,7 @@ import Dashboard from './pages/Dashboard';
 import Employees from './components/Employees';
 import Login from './pages/Login';
 import AdditionDeduction from './components/AdditionDeduction';
-import CalendarDayOff from './components/CalendarDayoff'; 
+import CalendarDayOff from './components/CalendarDayOff'; 
 import PayrollReport from './components/PayrollReport'; 
 import TimeInTimeOutReport from './components/TimeInTimeOutReport';
 import PayrollSettingsModal from './components/PayrollSettingsModal'; 
